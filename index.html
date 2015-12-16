@@ -43,28 +43,33 @@
                 </style>
                 <script>
 $(document).ready(function() {
-    var history = new Josh.History({ key: 'josh.helloworld'});
+    var history = new Josh.History({ key: 'josh.folio'});
     var shell = Josh.Shell({history: history});
     var promptCounter = 0;
     shell.onNewPrompt(function(callback) {
         promptCounter++;
-        callback("[" + promptCounter + "] $");
+        callback("$");
     });
-    shell.setCommandHandler("hello", {
+
+    shell.setCommandHandler("start", {
         exec: function(cmd, args, callback) {
-            var arg = args[0] || '';
+            var arg = args[0] || "sir";
             var response = "Hello, " + arg + ". I am Prabodh Agarwal.";
-            if(arg === 'josh') {
-                response = 'pleased to meet you.';
-            } else if(arg === 'world') {
-                response = 'world says hi.'
-            } else if(!arg) {
-                response = 'who are you saying hello to?';
-            }
             callback(response);
         },
         completion: function(cmd, arg, line, callback) {
-            callback(shell.bestMatch(arg, ['world', 'josh']))
+            callback(shell.bestMatch(arg, ['pbd', 'Prabodh']))
+        }
+    })
+
+    shell.setCommandHandler("hello", {
+        exec: function(cmd, args, callback) {
+            var arg = args[0] || "sir";
+            var response = "Hello, " + arg + ". I am Prabodh Agarwal.";
+            callback(response);
+        },
+        completion: function(cmd, arg, line, callback) {
+            callback(shell.bestMatch(arg, ['pbd', 'Prabodh']))
         }
     });
     shell.activate();
@@ -80,8 +85,16 @@ $(document).ready(function() {
 /_/   /_/   \__,_/_.___/\____/\__,_/_/ /_/   \__,_/\__, /\__,_/_/    |__/|__/\__,_/_/   
                                                    /___/                                
         </pre>
-        <div>Type 
-            <code>help</code> or hit <code>TAB</code> for a list of commands.</div>
+        <div>
+            <p style="width:50%;">
+            I love *nix systems and I thought lemme spread the ♥. I like to keep
+            things simple and have written this page in Vim. Looks like during
+            some yank operation, ended up copying the shell itself to this
+            browser😄.<br>What are we waiting for?
+            </p>
+            Type <code>help</code> or hit <code>TAB</code> for a list of commands.<br>
+            Let's start by knowing your name. Type <code>hello &lt;your name&gt;.</code>
+        </div>
         <div id="shell-view"></div>
 
     </body>
